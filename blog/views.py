@@ -1,6 +1,6 @@
 from django.shortcuts import render,get_object_or_404
 from django.utils import timezone
-from .models import Post
+from .models import Post,Userdetail
 from django.core import serializers
 from django.http import HttpResponse
 from .forms import PostForm
@@ -45,3 +45,12 @@ def post_edit(request, pk):
     else:
         form = PostForm(instance=post)
     return render(request, 'blog/post_edit.html', {'form': form})	
+	
+def android(request):
+	if request.method=='POST':
+		_name=string(request.POST['ename'])
+		_email=string(request.POST['email'])
+		Userdetail.object.create(name=_name,email=_email)
+		return HttpResponse("saved")
+	
+	return HttpResponse("not saved")	
