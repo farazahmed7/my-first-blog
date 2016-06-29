@@ -58,6 +58,7 @@ def android(request):
 	
 	return HttpResponse("not saved")	
 	
+@csrf_exempt	
 def newPostFromAndroid(request):
 	if request.method=='POST':
 		_author="Faraz"
