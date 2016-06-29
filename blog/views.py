@@ -53,7 +53,7 @@ def android(request):
 	if request.method=='POST':
 		_name=string(request.POST['name'])
 		_email=string(request.POST['email'])
-		Userdetail.object.create(name=_name,email=_email)
+		Userdetail.objects.create(name=_name,email_id=_email)
 		return HttpResponse("saved")
 	
 	return HttpResponse("not saved")	
