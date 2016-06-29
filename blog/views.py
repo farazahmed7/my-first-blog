@@ -57,3 +57,14 @@ def android(request):
 		return HttpResponse("saved")
 	
 	return HttpResponse("not saved")	
+	
+def newPostFromAndroid(request):
+	if request.method=='POST':
+		_author="Faraz"
+		_title=str(request.POST['title'])
+		_content=str(request.POST['content'])
+		Post.objects.create(author=_author,title=_title,text=_content)
+		return HttpResponse("saved")
+	
+	return HttpResponse("not saved")
+		
