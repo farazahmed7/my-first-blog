@@ -26,7 +26,6 @@ def post_new(request):
         form = PostForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
-            post.author = request.user
             post.published_date = timezone.now()
             post.save()
             return redirect('post_detail', pk=post.pk)
@@ -40,7 +39,6 @@ def post_edit(request, pk):
         form = PostForm(request.POST, instance=post)
         if form.is_valid():
             post = form.save(commit=False)
-            post.author = request.user
             post.published_date = timezone.now()
             post.save()
             return redirect('post_detail', pk=post.pk)
@@ -58,13 +56,11 @@ def android(request):
 	
 	return HttpResponse("not saved")	
 	
-@csrf_exempt	
 def newPostFromAndroid(request):
 	if request.method=='POST':
-		_author="Faraz"
 		_title=str(request.POST['title'])
-		_content=str(request.POST['content'])
-		Post.objects.create(author=_author,title=_title,text=_content)
+		_text=str(request.POST['text'])
+		Post.objects.create(title=_title,text=_text)
 		return HttpResponse("saved")
 	
 	return HttpResponse("not saved")
