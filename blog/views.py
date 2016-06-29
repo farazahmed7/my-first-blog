@@ -51,7 +51,7 @@ def post_edit(request, pk):
 @csrf_exempt
 def android(request):
 	if request.method=='POST':
-		_name=string(request.POST['ename'])
+		_name=string(request.POST['name'])
 		_email=string(request.POST['email'])
 		Userdetail.object.create(name=_name,email=_email)
 		return HttpResponse("saved")
