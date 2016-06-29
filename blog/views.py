@@ -5,6 +5,8 @@ from django.core import serializers
 from django.http import HttpResponse
 from .forms import PostForm
 from django.shortcuts import redirect
+from django.views.decorators.csrf import csrf_exempt
+
 
 
 
@@ -45,7 +47,8 @@ def post_edit(request, pk):
     else:
         form = PostForm(instance=post)
     return render(request, 'blog/post_edit.html', {'form': form})	
-	
+
+@csrf_exempt
 def android(request):
 	if request.method=='POST':
 		_name=string(request.POST['ename'])
