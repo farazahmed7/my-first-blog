@@ -75,9 +75,12 @@ def newPostFromAndroid(request):
 @csrf_exempt
 @api_view(['GET', 'POST', ])	
 def displayAndroid(request):
-	posts=Post.objects.all()
-	ser=UserSerializer(posts,many=True)
-	return Response(ser.data)
+	if request.method=='GET':
+		posts=Post.objects.filter(id=1)
+		ser=UserSerializer(posts,many=True)
+		return Response(ser.data)
+	return HttpResponse("not saved")	
+		
 	
 
     
