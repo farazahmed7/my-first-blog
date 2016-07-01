@@ -6,6 +6,12 @@ from django.http import HttpResponse
 from .forms import PostForm
 from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
+from .serializers import UserSerializer
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.decorators import api_view
+
+
 
 
 
@@ -56,6 +62,7 @@ def android(request):
 	
 	return HttpResponse("not saved")	
 	
+@csrf_exempt	
 def newPostFromAndroid(request):
 	if request.method=='POST':
 		_title=str(request.POST['title'])
@@ -64,4 +71,13 @@ def newPostFromAndroid(request):
 		return HttpResponse("saved")
 	
 	return HttpResponse("not saved")
-		
+	
+@csrf_exempt
+@api_view(['GET', 'POST', ])	
+def displayAndroid(request):
+	posts=Post.objects.all()
+	ser=UserSerializer(posts,many=True)
+	return Response(ser.data)
+	
+
+    
