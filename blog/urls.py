@@ -9,5 +9,6 @@ urlpatterns = [
 	url(r'^api/$',views.android,name='android'),
 	url(r'^api2/$',views.newPostFromAndroid, name='newPostFromAndroid'),
 	url(r'^posts/$',views.displayAndroid,name='displayAndroid'),
+	url(r'^searchapi/$',views.search,name='search'),
     	
 ]

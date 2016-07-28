@@ -1,12 +1,12 @@
 from django.shortcuts import render,get_object_or_404
 from django.utils import timezone
-from .models import Post,Userdetail
+from .models import Post,Userdetail,Search
 from django.core import serializers
 from django.http import HttpResponse
 from .forms import PostForm
 from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
-from .serializers import UserSerializer
+from .serializers import UserSerializer,SearchSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
@@ -75,12 +75,20 @@ def newPostFromAndroid(request):
 @csrf_exempt
 @api_view(['GET', 'POST', ])	
 def displayAndroid(request):
-	if request.method=='GET':
-		posts=Post.objects.filter(id=1)
+	if request.method=='POST':
+		posts=Post.objects.filter()
 		ser=UserSerializer(posts,many=True)
 		return Response(ser.data)
 	return HttpResponse("not saved")	
-		
 	
-
-    
+def search(request):
+	if request.method=='POST':
+		search_querey=str(request.POST['querey'])
+		x=search_querey.find("BTECH")
+		a=search_querey[x:5]
+		try:
+			p=Search.objects.get(stream='BTECH')
+			ser=SearchSerializer(p,many=True)
+			return Response(ser.data)
+		except Serach.DoesNotExist:
+			return Response("not saved")
